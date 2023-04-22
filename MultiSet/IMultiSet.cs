@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using MultiSet;
 
-namespace km.Collections.MultiZbior
+namespace IMultiSet
 {
     /// <summary>
     /// MultiSet, to rozszerzenie koncepcji zbioru, dopuszczające przechowywanie duplikatów elementów 

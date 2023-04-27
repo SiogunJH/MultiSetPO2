@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using MultiSet;
 
@@ -13,50 +14,47 @@ namespace IMultiSet
     /// </remarks>
     /// <typeparam name="T">dowolny typ, bez ograniczeń</typeparam>
 
-    public interface IMultiSet<T> : ICollection<T>, IEnumerable<T>
+    public interface IMultiSet<T> : ICollection<T>, IEnumerable<T> where T : notnull
     {
 
         #region === from ICollection<T> ============================================
-        /*
+        
         // opis metod wymaganych do zaimplementowania z ICollection<T>
 
         // zwraca liczbę wszystkich elementów multizbioru (łącznie z duplikatami)
-        public int Count { get; }
+        public new int Count { get; }
 
         // zwraca `true` jeśli multibiór jest tylko do odczytu, `false` w przeciwnym przypadku
-        public bool IsReadOnly { get; }
+        public new bool IsReadOnly { get; }
 
         // dodaje element do multizbioru
         // zgłasza `NotSupportedException` jeśli multizbior jest tylko do odczytu
-        public void Add (T item);
+        public new void Add (T item);
 
         // usuwa element z multizbioru, zwraca `true`, jesli operacja przebiegła pomyślnie, 
         // `false` w przeciwnym przypadku (elementu nie znaleziono)
         // zgłasza `NotSupportedException` jeśli multizbior jest tylko do odczytu
-        public bool Remove (T item);
+        public new bool Remove (T item);
 
         // zwraca `true`, jeśli element należy do multizbioru
-        public bool Contains (T item);
+        public new bool Contains (T item);
 
         // usuwa wszystkie elementy z multizbioru
         // zgłasza `NotSupportedException` jeśli multizbior jest tylko do odczytu
-        public void Clear ();
+        public new void Clear ();
 
         // kopiuje elementy multizbioru do tablicy, od wskazanego indeksu
-        public void CopyTo (T[] array, int arrayIndex);
-
-        */
+        public new void CopyTo (T[] array, int arrayIndex);
 
         // --- from IEnumerable<T> --------------------------
 
-        /*
         // zwraca iterator multizbioru (wariant generyczny)
-        public IEnumerator<T> GetEnumerator();
+        public new IEnumerator<T> GetEnumerator();
 
         // zwraca iterator multizbioru (wariant niegeneryczny)
         // C#8 default implementation
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-        */
+        
         #endregion -----------------------------------------------------------------
 
 

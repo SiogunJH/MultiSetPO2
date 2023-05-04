@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading.Tasks;
 using IMultiSet;
@@ -64,7 +65,7 @@ namespace MultiSet
             T[] tempArray = ToArray();
             int i = 0;
 
-            while (arrayIndex < array.Length && i < Count && i < array.Length)
+            while (arrayIndex+i < array.Length && i < Count && i < array.Length)
             {
                 array[arrayIndex+i] = tempArray[i];
                 i++;
@@ -141,13 +142,11 @@ namespace MultiSet
         {
             if (IsReadOnly) throw new NotSupportedException();
             if ((other is null)) throw new ArgumentNullException();
-            var tempMultiSet = new MultiSet<T>();
             foreach(var item in other)
             {
                 if (Contains(item)) Remove(item);
                 else Add(item);
             }
-            dict = tempMultiSet.dict;
             return this;
         }
         public bool IsEmpty { get => Count == 0; }
@@ -203,7 +202,7 @@ namespace MultiSet
 
         #region Subset Superset Equals
 
-        public IEqualityComparer<T> Comparer => throw new NotImplementedException();
+        public IEqualityComparer<T> Comparer => dict.Comparer;
 
         public bool IsSubsetOf(IEnumerable<T> other)
         {
@@ -312,13 +311,10 @@ namespace MultiSet
         public bool Overlaps(IEnumerable<T> other)
         {
             if (other is null) throw new ArgumentNullException();
-            foreach (var dictEl in dict)
-            {
-                foreach (var otherEl in other)
-                {
-                    if (dictEl.Equals(otherEl)) return true;
-                }
-            }
+            
+            foreach (var item in other)
+                if (Contains(item)) return true;
+            
             return false;
         }
 

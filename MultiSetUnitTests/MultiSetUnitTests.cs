@@ -707,4 +707,121 @@ namespace DataManipulation
             Assert.AreEqual(outcome, ms1.IsEmpty);
         }
     }
+
+    [TestClass]
+    public class Indexer
+    {
+        [DataTestMethod]
+        [DataRow(new char[] { 'a', 'a', 'b' }, 'a', 2)]
+        [DataRow(new char[] { 'a', 'a', 'b' }, 'g', 0)]
+        [DataRow(new char[] { 'a', 'a', 'b' }, 'b', 1)]
+        public void Char(char[] l1, char toFind, int expected)
+        {
+            var ms = new MultiSet<char>(l1);
+            Assert.AreEqual(expected, ms[toFind]);
+        }
+
+        [DataTestMethod]
+        [DataRow(new string[] { "a", "a", "b" }, "a", 2)]
+        [DataRow(new string[] { "a", "a", "b" }, "g", 0)]
+        [DataRow(new string[] { "a", "a", "b" }, "b", 1)]
+        public void String(string[] l1, string toFind, int expected)
+        {
+            var ms = new MultiSet<string>(l1);
+            Assert.AreEqual(expected, ms[toFind]);
+        }
+    }
+}
+
+namespace Arithmetics
+{
+    [TestClass]
+    public class PlusSign
+    {
+        [DataTestMethod]
+        [DataRow(new char[] { 'a' }, new char[] { 'b' }, new char[] { 'a', 'b' })]
+        public void Char(char[] l1, char[] l2, char[] l3)
+        {
+            var ms1 = new MultiSet<char>(l1);
+            var ms2 = new MultiSet<char>(l2);
+            var ms3 = new MultiSet<char>(l3);
+
+            var ms4 = ms1 + ms2;
+
+            CollectionAssert.AreEqual(ms4.dict, ms3.dict);
+        }
+
+        [DataTestMethod]
+        [DataRow(new string[] { "a" }, new string[] { "b" }, new string[] { "a", "b" })]
+        public void String(string[] l1, string[] l2, string[] l3)
+        {
+            var ms1 = new MultiSet<string>(l1);
+            var ms2 = new MultiSet<string>(l2);
+            var ms3 = new MultiSet<string>(l3);
+
+            var ms4 = ms1 + ms2;
+
+            CollectionAssert.AreEqual(ms4.dict, ms3.dict);
+        }
+    }
+
+    [TestClass]
+    public class MinusSign
+    {
+        [DataTestMethod]
+        [DataRow(new char[] { 'a', 'b' }, new char[] { 'b' }, new char[] { 'a' })]
+        public void Char(char[] l1, char[] l2, char[] l3)
+        {
+            var ms1 = new MultiSet<char>(l1);
+            var ms2 = new MultiSet<char>(l2);
+            var ms3 = new MultiSet<char>(l3);
+
+            var ms4 = ms1 - ms2;
+
+            CollectionAssert.AreEqual(ms4.dict, ms3.dict);
+        }
+
+        [DataTestMethod]
+        [DataRow(new string[] { "a", "b" }, new string[] { "b" }, new string[] { "a" })]
+        public void String(string[] l1, string[] l2, string[] l3)
+        {
+            var ms1 = new MultiSet<string>(l1);
+            var ms2 = new MultiSet<string>(l2);
+            var ms3 = new MultiSet<string>(l3);
+
+            var ms4 = ms1 - ms2;
+
+            CollectionAssert.AreEqual(ms4.dict, ms3.dict);
+        }
+    }
+
+    [TestClass]
+    public class StarSign
+    {
+        [DataTestMethod]
+        [DataRow(new char[] { 'a', 'c' }, new char[] { 'b', 'c' }, new char[] { 'c' })]
+        public void Char(char[] l1, char[] l2, char[] l3)
+        {
+            var ms1 = new MultiSet<char>(l1);
+            var ms2 = new MultiSet<char>(l2);
+            var ms3 = new MultiSet<char>(l3);
+
+            var ms4 = ms1 * ms2;
+
+            CollectionAssert.AreEqual(ms4.dict, ms3.dict);
+        }
+
+        [DataTestMethod]
+        [DataRow(new string[] { "a", "c" }, new string[] { "b", "c" }, new string[] { "c" })]
+        public void String(string[] l1, string[] l2, string[] l3)
+        {
+            var ms1 = new MultiSet<string>(l1);
+            var ms2 = new MultiSet<string>(l2);
+            var ms3 = new MultiSet<string>(l3);
+
+            var ms4 = ms1 * ms2;
+
+            CollectionAssert.AreEqual(ms4.dict, ms3.dict);
+        }
+    }
 }

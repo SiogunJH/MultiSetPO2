@@ -157,13 +157,15 @@ namespace IMultiSet
         public IEqualityComparer<T> Comparer { get; }
         // -------------------------
 
-
+        //TESTED
         // indexer, zwraca, dla zadanego `item`, liczbę jego powtórzeń w multizbiorze
         public int this[T item] { get; }
 
+        //SKIPPED
         // zwraca MultiSet jako Dictionary
         public IReadOnlyDictionary<T, int> AsDictionary();
 
+        //SKIPPED
         // zwraca MultiSet jako Set, usuwając duplikaty
         public IReadOnlySet<T> AsSet();
 
@@ -194,17 +196,17 @@ namespace IMultiSet
         // Równośc elementów zdefiniowana jest za pomocą obiektu `comparer`
         public MultiSet(IEnumerable<T> sequence, IEqualityComparer<T> comparer)
 
-        //
+        //TESTED
         // tworzy nowy multizbiór jako sumę multizbiorów `first` i `second`
         // zwraca `ArgumentNullException`, jeśli którykolwiek z parametrów jest `null`
         public static IMultiSet<T> operator +(IMultiSet<T> first, IMultiSet<T> second);
 
-        //
+        //TESTED
         // tworzy nowy multizbiór jako różnicę multizbiorów: od `first` odejmuje `second`
         // zwraca `ArgumentNullException`, jeśli którykolwiek z parametrów jest `null`
         public static IMultiSet<T> operator -(IMultiSet<T> first, IMultiSet<T> second);
 
-        //
+        //TESTED
         // tworzy nowy multizbiór jako część wspólną multizbiorów `first` oraz `second`
         // zwraca `ArgumentNullException`, jeśli którykolwiek z parametrów jest `null`
         public static IMultiSet<T> operator *(IMultiSet<T> first, IMultiSet<T> second);
